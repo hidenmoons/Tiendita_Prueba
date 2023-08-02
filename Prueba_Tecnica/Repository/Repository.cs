@@ -17,23 +17,63 @@ namespace Prueba_Tecnica.Repository
             return await _dbcontext.Products.ToListAsync();
         }
 
-        public async Task AddProduct(NewProduct product)
+        public async Task<Product> AddProduct(NewProduct product)
         {
-            throw new NotImplementedException();
+            var new_producto = new Product
+            {
+                ProductName = product.ProductName,
+                Precio = product.Precio,
+                Categoria = product.Categoria,
+                Stock = product.Stock,
+                Imagen = product.Imagen,
+                Descript = product.Descript
+            };
+
+             await _dbcontext.Products.AddAsync(new_producto);
+             await _dbcontext.SaveChangesAsync();
+
+            return new_producto;
         }
 
         public async Task DeleteProduct(int id)
         {
-            throw new NotImplementedException();
+           var producto = await _dbcontext.Products.FindAsync(id);
+            if (producto != null)
+            {
+                _dbcontext.Products.Remove(producto);
+                await _dbcontext.SaveChangesAsync();
+
+            }
+            
         }
 
         public async Task<Product> GetProductById(int id)
         {
-            throw new NotImplementedException();
+            return await _dbcontext.Products.FindAsync(id);
         }
+
         public async Task UpdateProduct(NewProduct product)
         {
-            throw new NotImplementedException();
+
+            var producto = await _dbcontext.Products.FindAsync(product.ProductId);
+            if (producto != null)
+            {
+
+
+                producto.Stock = product.Stock;
+                producto.Categoria = product.Categoria;
+                producto.Precio = product.Precio;
+                producto.Imagen = product.Imagen;
+                producto.ProductName = product.ProductName;
+                producto.Descript = product.Descript;
+                
+                
+                await _dbcontext.SaveChangesAsync();
+
+            }
+
         }
     }
+
+
 }

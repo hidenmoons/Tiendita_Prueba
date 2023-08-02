@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
 builder.Services.AddDbContext<StoreLowCostContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("sqlconex")));
 

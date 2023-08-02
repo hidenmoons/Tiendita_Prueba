@@ -5,7 +5,7 @@ namespace Prueba_Tecnica.Interfaces
     {
         Task<IEnumerable<Product>> GetProducts();
         Task<Product> GetProductById(int id);
-        Task AddProduct(NewProduct product);
+        Task<Product> AddProduct(NewProduct product);
         Task UpdateProduct(NewProduct product);
         Task DeleteProduct(int id);
     }
