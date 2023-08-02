@@ -52,26 +52,7 @@ namespace Prueba_Tecnica.Controllers
         }
 
         // login api/<UserController>/5
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] UserJWT loginmodel)
-        {
-            string email = loginmodel.email;
-            string password = loginmodel.password;
-
-            List<User> userlogin = new List<User>();
-            userlogin = await _dbcontext.Users.Where(x => x.Email == email && x.Passwo == password).ToListAsync();
-            
-            if (userlogin.Any())
-            {
-                return StatusCode(StatusCodes.Status200OK, userlogin);
-            }
-
-            else
-            {
-                return StatusCode(StatusCodes.Status400BadRequest, "Usuario incorrecto");
-            }
-        }
-
+   
         // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
