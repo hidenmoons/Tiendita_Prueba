@@ -6,8 +6,8 @@ namespace Prueba_Tecnica.Interfaces
         Task<Carrito> CreateCarrito(int userId);
         Task<CarritoDetail> ADDProductoAlCarrito(int carritoId, int productoId, int cantidad, decimal precioUnitario);
         Task<List<Carrito>> GetCarritosDeUsuario(int userId);
-        Task<CarritoDetail> GetDetallesDeCarrito(int carritoId);
-        Task UpdateDetallesDeCarrito(CarritoDetail carritoDetails);
+        Task<List<CarritoDetail>> GetDetallesDeCarrito(int carritoId);
+        Task UpdateDetallesDeCarrito(NewCarritoDetails carritoDetails);
         Task DeleteCarrito(int carritoId);
         Task DeleteProductoDeCarrito(int carritoDetailsId);
     }

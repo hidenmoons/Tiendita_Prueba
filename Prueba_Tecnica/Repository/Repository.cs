@@ -98,34 +98,68 @@ namespace Prueba_Tecnica.Repository
             return newproductCarrito;
         }
 
-        public Task<Carrito> CreateCarrito(int userId)
+        public async Task<Carrito> CreateCarrito(int userId)
         {
-            throw new NotImplementedException();
+            var newcarrito = new Carrito
+            {
+                UserId = userId,
+                CarritoStatus = "Activo"
+            };
+
+            await _dbcontext.Carritos.AddAsync(newcarrito);
+            await _dbcontext.SaveChangesAsync();
+            return newcarrito;
         }
 
-        public Task DeleteCarrito(int carritoId)
+        public async Task DeleteCarrito(int carritoId)
         {
-            throw new NotImplementedException();
+            var carrito = await _dbcontext.Carritos.FindAsync(carritoId);
+            if (carrito != null)
+            {
+                _dbcontext.Carritos.Remove(carrito);
+                await _dbcontext.SaveChangesAsync();
+            }
         }
 
-        public Task DeleteProductoDeCarrito(int carritoDetailsId)
+        public async Task DeleteProductoDeCarrito(int carritoDetailsId)
         {
-            throw new NotImplementedException();
+            var ProductoCarrito = await _dbcontext.CarritoDetails.FindAsync(carritoDetailsId);
+            if (ProductoCarrito != null)
+            {
+                _dbcontext.CarritoDetails.Remove(ProductoCarrito);
+                await _dbcontext.SaveChangesAsync();
+            }
         }
 
-        public Task<List<Carrito>> GetCarritosDeUsuario(int userId)
+        public async Task<List<Carrito>> GetCarritosDeUsuario(int userId)
         {
-            throw new NotImplementedException();
+            var carritosUsuario = await _dbcontext.Carritos.
+                Where(x => x.UserId == userId).
+                ToListAsync();
+            return carritosUsuario;
         }
 
-        public Task<CarritoDetail> GetDetallesDeCarrito(int carritoId)
+        public async Task<List<CarritoDetail>> GetDetallesDeCarrito(int carritoId)
         {
-            throw new NotImplementedException();
+            var carritosUsuario = await _dbcontext.CarritoDetails.
+                Where(x => x.Idcarrito == carritoId).
+                ToListAsync();
+            return carritosUsuario;
         }
 
-        public Task UpdateDetallesDeCarrito(CarritoDetail carritoDetails)
+        public async Task UpdateDetallesDeCarrito(NewCarritoDetails carritoDetails)
         {
-            throw new NotImplementedException();
+            var carritoDetailUpdate = await _dbcontext.CarritoDetails.FindAsync(carritoDetails.IddetalleCarrito);
+
+            if (carritoDetailUpdate != null)
+            {
+                carritoDetailUpdate.CantidadProducto = carritoDetails.CantidadProducto;
+                carritoDetailUpdate.Subtotal = carritoDetailUpdate.CantidadProducto * carritoDetailUpdate.PrecioUnitario;
+
+                await _dbcontext.SaveChangesAsync();
+
+            }
+
         }
     }
 

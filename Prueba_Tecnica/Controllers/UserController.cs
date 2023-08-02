@@ -64,7 +64,7 @@ namespace Prueba_Tecnica.Controllers
 
         }
 
-        // login api/<UserController>/5
+       
    
         // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
