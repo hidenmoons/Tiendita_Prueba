@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Prueba_Tecnica.Controllers
 {
@@ -13,15 +14,20 @@ namespace Prueba_Tecnica.Controllers
     public class AuthController : ControllerBase
     {
         private readonly string secretkey;
-        public AuthController(IConfiguration config)
+        private readonly StoreLowCostContext _dbcontext;
+        public AuthController(IConfiguration config, StoreLowCostContext _dbcontext)
         {
             secretkey = config.GetSection("settings").GetSection("secretkey").ToString();
+            this._dbcontext = _dbcontext;
         }
         [HttpPost]
         [Route("auth")]
-        public IActionResult validarUser([FromBody] UserJWT request) 
+        public async Task<IActionResult> validarUser([FromBody] UserJWT request)
         {
-            if (request.email == "test.com" && request.password =="12345")
+            List<User> userlogin = new List<User>();
+            userlogin = await _dbcontext.Users.Where(x => x.Email == request.email).ToListAsync();
+            var user = userlogin.First();
+            if (request.email == user.Email && request.password == user.Passwo)
             {
                 var keyBytes = Encoding.ASCII.GetBytes(secretkey);
                 var claims = new ClaimsIdentity();

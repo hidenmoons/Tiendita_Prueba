@@ -8,7 +8,7 @@ using Prueba_Tecnica.Models;
 namespace Prueba_Tecnica.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
+    
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -18,8 +18,9 @@ namespace Prueba_Tecnica.Controllers
             this._dbcontext = _dbcontext;
         }
         // GET: api/<UserController>
+        [Authorize]
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> ListadeUsuarios()
         {
 
             return Ok(await _dbcontext.Users.ToListAsync());
@@ -35,14 +36,40 @@ namespace Prueba_Tecnica.Controllers
 
         // POST api/<UserController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Crear_usuario([FromBody] NewUser nuevousuario)
         {
+            var user = new User
+            {
+                UserName = nuevousuario.UserName,
+                Passwo = nuevousuario.Passwo,
+                Email = nuevousuario.Email,
+                Addres = nuevousuario.Addres,
+            };
+            _dbcontext.Users.Add(user);
+            await _dbcontext.SaveChangesAsync();
+            return StatusCode(StatusCodes.Status201Created);
+
         }
 
-        // PUT api/<UserController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // login api/<UserController>/5
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] UserJWT loginmodel)
         {
+            string email = loginmodel.email;
+            string password = loginmodel.password;
+
+            List<User> userlogin = new List<User>();
+            userlogin = await _dbcontext.Users.Where(x => x.Email == email && x.Passwo == password).ToListAsync();
+            
+            if (userlogin.Any())
+            {
+                return StatusCode(StatusCodes.Status200OK, userlogin);
+            }
+
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, "Usuario incorrecto");
+            }
         }
 
         // DELETE api/<UserController>/5
