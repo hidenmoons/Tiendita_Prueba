@@ -1,6 +1,7 @@
 ﻿using Prueba_Tecnica.Interfaces;
 using Prueba_Tecnica.Models;
 using Microsoft.EntityFrameworkCore;
+
 namespace Prueba_Tecnica.Repository
 {
     public class ProductRepository:IProductRepository
@@ -74,6 +75,58 @@ namespace Prueba_Tecnica.Repository
 
         }
     }
+    public class CarritoRepository : ICarritoRepository
+    {
+        private readonly StoreLowCostContext _dbcontext;
+        public CarritoRepository(StoreLowCostContext _dbcontext)
+        {
+            this._dbcontext = _dbcontext;
+        }
+        public async Task<CarritoDetail> ADDProductoAlCarrito(int carritoId, int productoId, int cantidad, decimal precioUnitario)
+        {
+            var newproductCarrito = new CarritoDetail 
+            {
+                Idcarrito= carritoId,
+                Idproducto= productoId,
+                CantidadProducto= cantidad,
+                PrecioUnitario= precioUnitario,
+                Subtotal= precioUnitario*cantidad,
+            };
+            _dbcontext.Add(newproductCarrito);
+            await _dbcontext.SaveChangesAsync();
+            
+            return newproductCarrito;
+        }
 
+        public Task<Carrito> CreateCarrito(int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteCarrito(int carritoId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteProductoDeCarrito(int carritoDetailsId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Carrito>> GetCarritosDeUsuario(int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<CarritoDetail> GetDetallesDeCarrito(int carritoId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateDetallesDeCarrito(CarritoDetail carritoDetails)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
 }

@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Prueba_Tecnica.Models;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,8 +24,19 @@ namespace Prueba_Tecnica.Controllers
         [HttpGet]
         public async Task<IActionResult> ListadeUsuarios()
         {
+            var usuariosConCarritos = await _dbcontext.Users
+        .Include(u => u.Carritos)
+        .ThenInclude(c => c.CarritoDetails)
+        .ToListAsync();
 
-            return Ok(await _dbcontext.Users.ToListAsync());
+            var options = new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.Preserve,
+                // ... otras opciones ...
+            };
+
+            var json = JsonSerializer.Serialize(usuariosConCarritos, options);
+            return Content(json, "application/json");
 
         }
 

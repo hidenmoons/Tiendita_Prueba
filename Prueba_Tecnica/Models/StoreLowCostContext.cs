@@ -55,7 +55,7 @@ public partial class StoreLowCostContext : DbContext
             entity.HasKey(e => e.IddetalleCarrito).HasName("PK__CarritoD__2B49305F89324B03");
 
             entity.Property(e => e.IddetalleCarrito)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("IDDetalleCarrito");
             entity.Property(e => e.Idcarrito).HasColumnName("IDCarrito");
             entity.Property(e => e.Idproducto).HasColumnName("IDProducto");

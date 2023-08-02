@@ -36,6 +36,7 @@ namespace Prueba_Tecnica.Controllers
             var newProduct = await _productRepository.AddProduct(product);
             return StatusCode(StatusCodes.Status201Created, newProduct);
         }
+
         [HttpPut]
         public async Task<ActionResult> ActionResult([FromBody] NewProduct product)
         {
