@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "XgIsVPqT8TPcjcuhrlvvJYY4RNspANavrSPaMV7h0nfnQf8dw9AHK6nfTB42j9fe8q2/i6ZAJpqrMDW23sPiPg==",
+  "dgSpecHash": "09QJlMi8dCshnbl6L9l8dQ7ZQsi3/pKEEnh+nLrdnUOcHRQyP8W6cEx2tZ7j7Z5rNcxId5d0G/iMPKtSdd0SZw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Moons\\Documents\\Prueba tecnica\\Prueba_Tecnica\\Prueba_Tecnica.csproj",
+  "projectFilePath": "C:\\Users\\Moons\\Documents\\Prueba tecnica\\Backend\\Prueba_Tecnica\\Prueba_Tecnica.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Moons\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Moons\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
