@@ -6,7 +6,7 @@
             <h3 class="text-center">Acceso</h3>
           </div>
           <div class="card-body">
-            <form *ngIf="isRegisterForm; else loginForm" (ngSubmit)="onRegisterSubmit()">
+            <form *ngIf="isRegisterForm; else loginForm" (ngSubmit)="onRegisterSubmit()" class="mx-auto">
               <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" class="form-control" id="username" [(ngModel)]="registro.username" name="username">
@@ -30,23 +30,23 @@
                   <option value="cliente">Cliente</option>
                 </select>
               </div>
-              <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+              <button type="submit" class="btn btn-primary btn-block mt-3">Registrar</button>
               <p class="text-center mt-3">¿Ya tienes una cuenta? <a href="#" (click)="activeTab()">Iniciar sesión</a></p>
             </form>
             
             <ng-template #loginForm>
-              <form (ngSubmit)="onLoginSubmit()">
-                <div class="form-group">
-                  <label for="loginEmail">Email</label>
-                  <input type="email" class="form-control" id="loginEmail" [(ngModel)]="login.email" name="loginEmail">
-                </div>
-                <div class="form-group">
-                  <label for="loginPassword">Password</label>
-                  <input type="password" class="form-control" id="loginPassword" [(ngModel)]="login.password" name="loginPassword">
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
-                <p class="text-center mt-3">¿No tienes una cuenta? <a href="#" (click)="activeTab()">Registrarse</a></p>
-              </form>
+                <form *ngIf="!isRegisterForm" (ngSubmit)="onLoginSubmit()">
+                    <div class="form-group">
+                      <label for="email">Email:</label>
+                      <input type="email" class="form-control" id="email" [(ngModel)]="login.email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="password">Password:</label>
+                      <input type="password" class="form-control" id="password" [(ngModel)]="login.password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Login</button>
+                    <p class="text-center mt-3">No tienes cuenta? Registrate!! <a href="#" (click)="activeTab()">Registro</a></p>
+                  </form>                  
             </ng-template>
           </div>
         </div>

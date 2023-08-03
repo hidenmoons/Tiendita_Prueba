@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ApiServiceService } from '../services/api-service.service';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-registro-login',
   templateUrl: './registro-login.component.html',
@@ -28,7 +29,7 @@ export class RegistroLoginComponent implements OnInit {
     email:'',
     password: '',
 }
-  constructor() { }
+  constructor(private userservice:ApiServiceService ) { }
 
   ngOnInit(): void {
   }
@@ -41,10 +42,12 @@ export class RegistroLoginComponent implements OnInit {
     this.isRegisterForm = !this.isRegisterForm;
   }
   onRegisterSubmit() {
-    // Lógica para el registro
+    console.log(this.registro)
   }
 
   onLoginSubmit() {
-    // Lógica para el login
+    this.userservice.Login(this.login).subscribe(data=>{
+      console.log(data)
+    });
   }
 }
