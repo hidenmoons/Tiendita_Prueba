@@ -20,19 +20,25 @@ namespace Prueba_Tecnica.Controllers
             secretkey = config.GetSection("settings").GetSection("secretkey").ToString();
             this._dbcontext = _dbcontext;
         }
+
         [HttpPost]
         [Route("auth")]
         public async Task<IActionResult> validarUser([FromBody] UserJWT request)
         {
             List<User> userlogin = new List<User>();
             userlogin = await _dbcontext.Users.Where(x => x.Email == request.email).ToListAsync();
+
             var user = userlogin.First();
+
             if (request.email == user.Email && request.password == user.Passwo)
             {
                 var keyBytes = Encoding.ASCII.GetBytes(secretkey);
                 var claims = new ClaimsIdentity();
 
                 claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, request.email));
+
+                claims.AddClaim(new Claim("UserID", user.UserId.ToString()));
+
 
                 var tokenDesc = new SecurityTokenDescriptor
                 {
@@ -49,11 +55,13 @@ namespace Prueba_Tecnica.Controllers
 
                 return StatusCode(StatusCodes.Status200OK, new { token = tokencreado });
             }
+
             else
             {
                 return StatusCode(StatusCodes.Status401Unauthorized, new { token = "" });
 
             }
+
         }
     }
 }

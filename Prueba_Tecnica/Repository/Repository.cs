@@ -82,8 +82,36 @@ namespace Prueba_Tecnica.Repository
         {
             this._dbcontext = _dbcontext;
         }
+        /// <summary>
+        /// /
+        /// </summary>
+        /// <param name="carritoId"></param>
+        /// <param name="productoId"></param>
+        /// <param name="cantidad"></param>
+        /// <param name="precioUnitario"></param>
+        /// <returns></returns>
         public async Task<CarritoDetail> ADDProductoAlCarrito(int carritoId, int productoId, int cantidad, decimal precioUnitario)
         {
+            
+            if (cantidad <=0)
+            {
+                throw new("No se aceptan cantidades negativas");
+            }
+
+            var productos = await _dbcontext.Products.FindAsync(productoId);
+
+            if (productos == null)
+            {
+                throw new("producto no existe");
+            }
+
+            if (productos.Stock < cantidad)
+            {
+                throw new("no hay Suficiente Stock");
+            }
+
+            productos.Stock -= cantidad;
+
             var newproductCarrito = new CarritoDetail 
             {
                 Idcarrito= carritoId,
@@ -92,6 +120,7 @@ namespace Prueba_Tecnica.Repository
                 PrecioUnitario= precioUnitario,
                 Subtotal= precioUnitario*cantidad,
             };
+
             _dbcontext.Add(newproductCarrito);
             await _dbcontext.SaveChangesAsync();
             

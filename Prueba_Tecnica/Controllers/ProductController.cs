@@ -14,7 +14,7 @@ namespace Prueba_Tecnica.Controllers
             this._productRepository= productRepository;
         }
         /// <summary>
-        /// /
+        /// /ddasdsadas
         /// </summary>
         /// <returns></returns>
         [HttpGet]

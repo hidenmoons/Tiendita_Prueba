@@ -63,8 +63,6 @@ namespace Prueba_Tecnica.Controllers
             return StatusCode(StatusCodes.Status201Created);
 
         }
-
-       
    
         // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
