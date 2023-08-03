@@ -20,7 +20,7 @@ namespace Prueba_Tecnica.Controllers
             this._dbcontext = _dbcontext;
         }
         // GET: api/<UserController>
-        [Authorize]
+        [Authorize(Policy = "AdminOnly")]
         [HttpGet]
         public async Task<IActionResult> ListadeUsuarios()
         {
@@ -57,6 +57,7 @@ namespace Prueba_Tecnica.Controllers
                 Passwo = nuevousuario.Passwo,
                 Email = nuevousuario.Email,
                 Addres = nuevousuario.Addres,
+                Roles= nuevousuario.Roles
             };
             _dbcontext.Users.Add(user);
             await _dbcontext.SaveChangesAsync();

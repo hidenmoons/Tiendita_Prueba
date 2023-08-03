@@ -14,7 +14,7 @@ public partial class User
     public string Email { get; set; } = null!;
 
     public string Addres { get; set; } = null!;
-
+    public string Roles { get; set; } = null!;
     public virtual ICollection<Carrito> Carritos { get; set; } = new List<Carrito>();
 
     public virtual ICollection<Pedido> Pedidos { get; set; } = new List<Pedido>();

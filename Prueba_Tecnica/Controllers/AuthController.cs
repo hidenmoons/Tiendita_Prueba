@@ -38,7 +38,7 @@ namespace Prueba_Tecnica.Controllers
                 claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, request.email));
 
                 claims.AddClaim(new Claim("UserID", user.UserId.ToString()));
-
+                claims.AddClaim(new Claim(ClaimTypes.Role, user.Roles));
 
                 var tokenDesc = new SecurityTokenDescriptor
                 {
