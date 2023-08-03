@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Prueba_Tecnica.Models;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Prueba_Tecnica.Utilitys;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -51,10 +52,12 @@ namespace Prueba_Tecnica.Controllers
         [HttpPost]
         public async Task<IActionResult> Crear_usuario([FromBody] NewUser nuevousuario)
         {
+            CrifrarPassword cifrarPassword = new CrifrarPassword();
+
             var user = new User
             {
                 UserName = nuevousuario.UserName,
-                Passwo = nuevousuario.Passwo,
+                Passwo = cifrarPassword.Cifrar_contrase_(nuevousuario.Passwo),
                 Email = nuevousuario.Email,
                 Addres = nuevousuario.Addres,
                 Roles= nuevousuario.Roles
