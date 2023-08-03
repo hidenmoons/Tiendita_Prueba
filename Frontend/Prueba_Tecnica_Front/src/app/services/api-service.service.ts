@@ -4,12 +4,18 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiServiceService {
- private apiurlUsers='https://localhost:7237/api/Auth/auth'
+ private apiurlUsers='https://localhost:7237/api/'
 
   constructor(private http: HttpClient) { }
 
   Login(data:any){
-    return this.http.post(this.apiurlUsers, data)
+    return this.http.post(this.apiurlUsers +"Auth/auth", data)
   }
-  
+
+
+  register(data:any){
+    
+    return this.http.post(this.apiurlUsers +"User", data)
+
+  }
 }

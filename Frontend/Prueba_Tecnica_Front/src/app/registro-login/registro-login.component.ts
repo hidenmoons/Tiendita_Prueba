@@ -10,16 +10,16 @@ export class RegistroLoginComponent implements OnInit {
   isRegisterForm: boolean = true;
   registro: {
     username: string;
-    password: string;
+    passwo: string;
     email: string;
-    address: string;
-    role: string;
+    addres: string;
+    roles: string;
   } = {
     username: '',
-    password: '',
+    passwo: '',
     email: '',
-    address: '',
-    role: 'cliente'
+    addres: '',
+    roles: ''
   };
 
   login: {
@@ -43,6 +43,10 @@ export class RegistroLoginComponent implements OnInit {
   }
   onRegisterSubmit() {
     console.log(this.registro)
+    this.userservice.register(this.registro).subscribe(data=>{
+      console.log(data)
+    })
+    
   }
 
   onLoginSubmit() {
