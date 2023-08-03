@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { getcarritodetails } from '../Models/Carritodetails.data';
 import { CarritoService } from '../services/carrito.service';
+import { carrito } from '../Models/Carritodetails.data';
 @Component({
   selector: 'app-carrito-details',
   templateUrl: './carrito-details.component.html',
   styleUrls: ['./carrito-details.component.css']
 })
 export class CarritoDetailsComponent implements OnInit {
-
+  carritoid: carrito | any;
   carrito: getcarritodetails[]=[];
   constructor(private carritoservice:CarritoService) { }
 
@@ -16,11 +17,18 @@ export class CarritoDetailsComponent implements OnInit {
   }
 
   getCarritoDetails(){
-
-    this.carritoservice.getDetallesDeCarrito(9).subscribe(data=>{
-      this.carrito = this.groupAndSumProducts(data)
-      console.log(this.carrito)
+    this.carritoservice.CrearCarrito().subscribe((data: carrito)=>{
+      this.carritoid =data.carritoId;
+      console.log(this.carritoid)
+      if(this.carrito!=null){
+      this.carritoservice.getDetallesDeCarrito(this.carritoid).subscribe(data=>{
+        this.carrito = this.groupAndSumProducts(data)
+        console.log(this.carrito)
+      })
+    }
     })
+    
+   
 
     
   }

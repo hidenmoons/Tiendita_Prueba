@@ -18,3 +18,9 @@ export interface getcarritodetails {
     productoIMG: string
   }
   
+  export interface carrito{
+    carritoId: number;
+    userId: number;
+    carritoStatus:string;
+  }
+  //carritoId: 9, userId: 20, carritoStatus: 'Activo'

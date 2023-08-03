@@ -28,7 +28,44 @@
         <hr class="text-black">
         <h5 class="text-black">Total del Carrito:</h5>
         <h6 class="mb-4 text-black">${{ calcularTotalCarrito() }}</h6>
-        <button class="btn btn-primary">Pagar</button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPago">
+          Pagar Carrito
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Pago -->
+<div class="modal fade" id="modalPago" tabindex="-1" aria-labelledby="modalPagoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalPagoLabel">Pagar Carrito</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Seleccione el método de pago:</p>
+        <form>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="metodoPago" id="pagoTarjeta" value="tarjeta">
+            <label class="form-check-label" for="pagoTarjeta">
+              Tarjeta de Crédito/Débito
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="metodoPago" id="pagoTransferencia" value="transferencia">
+            <label class="form-check-label" for="pagoTransferencia">
+              Transferencia Bancaria
+            </label>
+          </div>
+        </form>
+        <hr>
+        <p>Total a Pagar: ${{ calcularTotalCarrito() }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" >Realizar Pago</button>
       </div>
     </div>
   </div>

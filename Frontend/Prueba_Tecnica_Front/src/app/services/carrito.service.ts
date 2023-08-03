@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { getcarritodetails } from '../Models/Carritodetails.data';
-const token = localStorage.getItem('jwtToken');
-const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-const options = { headers: headers }; 
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,15 +15,30 @@ export class CarritoService {
   
   constructor(private http: HttpClient) { }
 
-  CrearCarrito(data: any){
-   
-
-    return this.http.post(this.apiurlUsers +"Carrito",data,options)
+  CrearCarrito():Observable<any>{
+    const token = localStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const options = { headers: headers }; 
+    console.log(token);
+    return this.http.post(this.apiurlUsers +"Carrito",{},options)
 
   }
 
- crearcarritodetails(data:any){
+  saveToken(token: string): void {
+    localStorage.setItem('CarritoToken', token);
+  }
 
+  getToken(): string | null {
+    return localStorage.getItem('CarritoToken');
+  }
+
+  removeToken(): void {
+    localStorage.removeItem('CarritoToken');
+  }
+ crearcarritodetails(data:any){
+  const token = localStorage.getItem('jwtToken');
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  const options = { headers: headers }; 
   return this.http.post(this.apiurlUsers +"Carrito/CarritoDetails",data,options)
 
  }
@@ -32,6 +46,5 @@ export class CarritoService {
  getDetallesDeCarrito(carritoId: number): Observable<getcarritodetails[]> {
   return this.http.get<getcarritodetails[]>(`${this.apiurlUsers}Carrito/CarritoDetails?carritoId=${carritoId}`);
 }
-
   
 }

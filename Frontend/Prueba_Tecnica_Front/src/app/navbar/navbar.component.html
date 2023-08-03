@@ -10,13 +10,26 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto flex-row"> 
         <li class="nav-item">
-          <a class="nav-link" href="/registro-login">Registrar/Login</a>
+          <ng-container *ngIf="!currentUser">
+            <a class="nav-link" [routerLink]="['/registro-login']">Registrar/Login</a>
+          </ng-container>
+          <ng-container *ngIf="currentUser">
+            <div class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                ¡Hola, {{ currentUser.userName}}!
+              </a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Perfil</a>
+                <a class="dropdown-item" (click)="logout()">Cerrar sesión</a>
+              </div>
+            </div>
+          </ng-container>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/Catalogo">catalogo</a>
+          <a class="nav-link" [routerLink]="['/Catalogo']">catalogo</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/Carrito">Carrito</a>
+          <a class="nav-link" [routerLink]="['/Carrito']">Carrito</a>
         </li>
       </ul>
     </div>

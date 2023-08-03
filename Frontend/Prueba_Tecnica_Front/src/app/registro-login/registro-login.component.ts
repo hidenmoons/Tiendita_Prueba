@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiServiceService } from '../services/api-service.service';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-registro-login',
   templateUrl: './registro-login.component.html',
@@ -29,7 +30,7 @@ export class RegistroLoginComponent implements OnInit {
     email:'',
     password: '',
 }
-  constructor(private userservice:ApiServiceService ) { }
+  constructor(private userservice:ApiServiceService ,private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -41,21 +42,25 @@ export class RegistroLoginComponent implements OnInit {
   activeTab() {
     this.isRegisterForm = !this.isRegisterForm;
   }
+
   onRegisterSubmit() {
+
     console.log(this.registro)
     this.userservice.register(this.registro).subscribe(data=>{
       console.log(data)
     })
-    
+    this.activeTab();
   }
 
   onLoginSubmit() {
-
-    this.userservice.Login(this.login).subscribe(data=>{
-      ;
-      console.log(data)
-      this.userservice.saveToken(data.token)
-    });
+     
+    this.userservice.removeToken();
     
+    this.userservice.Login(this.login).subscribe(data => {
+      this.userservice.saveToken(data.token);
+      this.userservice.saveUser(data.user);
+    });
+
+    window.location.href = '/Catalogo';
   }
 }

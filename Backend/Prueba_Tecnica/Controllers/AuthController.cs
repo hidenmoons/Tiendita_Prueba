@@ -26,8 +26,8 @@ namespace Prueba_Tecnica.Controllers
         [Route("auth")]
         public async Task<IActionResult> validarUser([FromBody] UserJWT request)
         {
-
-            List<User> userlogin = new List<User>();
+           
+           List<User> userlogin = new List<User>();
 
             userlogin = await _dbcontext.Users.Where(x => x.Email == request.email).ToListAsync();
 
