@@ -55,7 +55,7 @@ namespace Prueba_Tecnica.Controllers
 
                 string tokencreado = tokenHandler.WriteToken(tokenconfig);
 
-                return StatusCode(StatusCodes.Status200OK, new { token = tokencreado });
+                return StatusCode(StatusCodes.Status200OK, new { token = tokencreado, user });
             }
 
             else

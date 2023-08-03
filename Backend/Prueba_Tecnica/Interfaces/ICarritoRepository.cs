@@ -4,7 +4,7 @@ namespace Prueba_Tecnica.Interfaces
     public interface ICarritoRepository
     {
         Task<Carrito> CreateCarrito(int userId);
-        Task<CarritoDetail> ADDProductoAlCarrito(int carritoId, int productoId, int cantidad, decimal precioUnitario);
+        Task<CarritoDetail> ADDProductoAlCarrito(NewCarritoDetails newCarritoDetails);
         Task<List<Carrito>> GetCarritosDeUsuario(int userId);
         Task<List<CarritoDetail>> GetDetallesDeCarrito(int carritoId);
         Task UpdateDetallesDeCarrito(NewCarritoDetails carritoDetails);

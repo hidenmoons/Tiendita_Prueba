@@ -18,13 +18,13 @@ namespace Prueba_Tecnica.Controllers
             this._CarritoRepository = carritoRepository;
         }
 
-        [Authorize]
+        //[Authorize(Policy = "AdminOnly")]
         [HttpPost("CarritoDetails")]
-        public async Task<IActionResult> ADDProductoAlCarrito(int carritoId, int productoId, int cantidad, decimal precioUnitario)
+        public async Task<IActionResult> ADDProductoAlCarrito([FromBody] NewCarritoDetails newcarritodetails)
         {
            
 
-            var newProductocarrito = await _CarritoRepository.ADDProductoAlCarrito(carritoId, productoId, cantidad, precioUnitario);
+            var newProductocarrito = await _CarritoRepository.ADDProductoAlCarrito(newcarritodetails);
             var jsonOptions = new JsonSerializerOptions
             {
                 ReferenceHandler = ReferenceHandler.Preserve
@@ -40,7 +40,7 @@ namespace Prueba_Tecnica.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> CreateCarrito()
         {
             int userId = 0;
@@ -87,7 +87,20 @@ namespace Prueba_Tecnica.Controllers
         public async Task<IActionResult> GetDetallesDeCarrito(int carritoId)
         {
             var detallecarrito = await _CarritoRepository.GetDetallesDeCarrito(carritoId);
-            return StatusCode(StatusCodes.Status200OK, detallecarrito);
+            var detallesConNombres = detallecarrito.Select(detalle => new
+            {
+                detalle.IddetalleCarrito,
+                detalle.Idcarrito,
+                detalle.Idproducto,
+                detalle.CantidadProducto,
+                detalle.PrecioUnitario,
+                detalle.Subtotal,
+                ProductoNombre = detalle.IdproductoNavigation.ProductName,
+                ProductoDescrip= detalle.IdproductoNavigation.Descript,
+                ProductoIMG= detalle.IdproductoNavigation.Imagen
+            }).ToList();
+
+            return StatusCode(StatusCodes.Status200OK, detallesConNombres);
 
         }
 

@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <h2 class="mb-4 text-black">Carrito de Compras</h2>
+      <hr class="text-black">
+      <div class="carrito-list" style="max-height: 600px; overflow-y: auto;">
+        <div class="card-deck">
+          <div class="card mb-3" *ngFor="let producto of carrito; let i = index">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4">
+                  <img src="{{ producto.productoIMG }}" class="img-thumbnail" alt="{{ producto.productoNombre }}" style="max-height: 250px; width: 550px;">
+                </div>
+                <div class="col-md-8">
+                  <h5 class="card-title">{{ producto.productoNombre }}</h5>
+                  <p class="card-text">{{ producto.productoDescrip }}</p>
+                  <p class="card-text text-black">Precio: ${{ producto.precioUnitario }}</p>
+                  <p class="card-text">Cantidad: {{ producto.cantidadProducto }}</p>
+                  <p class="card-text text-black">Total: ${{ producto.subtotal }}</p>
+                  <button class="btn btn-danger btn-sm">Eliminar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 text-end mt-4">
+        <hr class="text-black">
+        <h5 class="text-black">Total del Carrito:</h5>
+        <h6 class="mb-4 text-black">${{ calcularTotalCarrito() }}</h6>
+        <button class="btn btn-primary">Pagar</button>
+      </div>
+    </div>
+  </div>
+</div>

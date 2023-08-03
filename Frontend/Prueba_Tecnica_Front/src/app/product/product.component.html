@@ -1,0 +1,14 @@
+<div class="card my-2" style="max-width: 400px;">
+    <img class="card-img-top img-fluid" [src]="product.imagen" alt="Product Image" style="max-width: 100%; max-height: 350px;">
+    <div class="card-body">
+      <h5 class="card-title">{{ product.productName }}</h5>
+      <p class="card-text">{{product.categoria}}</p>
+      <p class="card-text">{{ product.descript }}</p>
+      <p class="card-text">Stock: {{ product.stock }}</p>
+      <p class="card-text">
+        <strong>Price: <span class="text-dark">{{ product.precio }}</span></strong>
+      </p>
+      <button class="btn btn-primary" (click)="addToCart(product)">Add to Cart</button>
+    </div>
+  </div>
+  

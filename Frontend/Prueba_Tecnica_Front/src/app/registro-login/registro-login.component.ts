@@ -50,8 +50,12 @@ export class RegistroLoginComponent implements OnInit {
   }
 
   onLoginSubmit() {
+
     this.userservice.Login(this.login).subscribe(data=>{
+      ;
       console.log(data)
+      this.userservice.saveToken(data.token)
     });
+    
   }
 }

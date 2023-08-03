@@ -26,12 +26,12 @@
               <div class="form-group">
                 <label for="role">Role</label>
                 <select class="form-control" id="role" [(ngModel)]="registro.roles" name="role">
-                  <option value="admin">Admin</option>
-                  <option value="cliente">Cliente</option>
+                  <option value="Admin">Admin</option>
+                  <option value="Cliente">Cliente</option>
                 </select>
               </div>
               <button type="submit" class="btn btn-primary btn-block mt-3">Registrar</button>
-              <p class="text-center mt-3">¿Ya tienes una cuenta? <a href="#" (click)="activeTab()">Iniciar sesión</a></p>
+              <p class="text-center mt-3">¿Ya tienes una cuenta? <a  (click)="activeTab()">Iniciar sesión</a></p>
             </form>
             
             <ng-template #loginForm>
@@ -45,7 +45,7 @@
                       <input type="password" class="form-control" id="password" [(ngModel)]="login.password" name="password" required>
                     </div>
                     <button type="submit" class="btn btn-primary mt-3">Login</button>
-                    <p class="text-center mt-3">No tienes cuenta? Registrate!! <a href="#" (click)="activeTab()">Registro</a></p>
+                    <p class="text-center mt-3">No tienes cuenta? Registrate!! <a (click)="activeTab()">Registro</a></p>
                   </form>                  
             </ng-template>
           </div>

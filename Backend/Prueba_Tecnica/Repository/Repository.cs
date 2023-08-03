@@ -90,45 +90,59 @@ namespace Prueba_Tecnica.Repository
         /// <param name="cantidad"></param>
         /// <param name="precioUnitario"></param>
         /// <returns></returns>
-        public async Task<CarritoDetail> ADDProductoAlCarrito(int carritoId, int productoId, int cantidad, decimal precioUnitario)
+        public async Task<CarritoDetail> ADDProductoAlCarrito(NewCarritoDetails newcarritodetails)
         {
             
-            if (cantidad <=0)
+            if (newcarritodetails.CantidadProducto <= 0)
             {
                 throw new("No se aceptan cantidades negativas");
             }
 
-            var productos = await _dbcontext.Products.FindAsync(productoId);
+            var productos = await _dbcontext.Products.FindAsync(newcarritodetails.Idproducto);
 
             if (productos == null)
             {
                 throw new("producto no existe");
             }
 
-            if (productos.Stock < cantidad)
+            if (productos.Stock < newcarritodetails.CantidadProducto)
             {
                 throw new("no hay Suficiente Stock");
             }
-
-            productos.Stock -= cantidad;
+           
+                
+            productos.Stock -= newcarritodetails.CantidadProducto;
 
             var newproductCarrito = new CarritoDetail 
             {
-                Idcarrito= carritoId,
-                Idproducto= productoId,
-                CantidadProducto= cantidad,
-                PrecioUnitario= precioUnitario,
-                Subtotal= precioUnitario*cantidad,
+                Idcarrito= newcarritodetails.Idcarrito,
+                Idproducto= newcarritodetails.Idproducto,
+                CantidadProducto= newcarritodetails.CantidadProducto,
+                PrecioUnitario= newcarritodetails.PrecioUnitario,
+                Subtotal= newcarritodetails.PrecioUnitario * newcarritodetails.CantidadProducto,
             };
 
             _dbcontext.Add(newproductCarrito);
             await _dbcontext.SaveChangesAsync();
-            
+
+   
+
             return newproductCarrito;
         }
 
         public async Task<Carrito> CreateCarrito(int userId)
         {
+            var statuscarrito = await _dbcontext.Carritos.Where(x => x.UserId == userId).ToListAsync();
+
+            foreach (var item in statuscarrito)
+            {
+                if (item.CarritoStatus =="Activo")
+                {
+
+                    return statuscarrito.Find(x=> x.CarritoId==item.CarritoId);
+                }
+            }
+
             var newcarrito = new Carrito
             {
                 UserId = userId,
@@ -170,10 +184,12 @@ namespace Prueba_Tecnica.Repository
 
         public async Task<List<CarritoDetail>> GetDetallesDeCarrito(int carritoId)
         {
-            var carritosUsuario = await _dbcontext.CarritoDetails.
-                Where(x => x.Idcarrito == carritoId).
-                ToListAsync();
-            return carritosUsuario;
+            var detallesCarrito = await _dbcontext.CarritoDetails
+         .Include(cd => cd.IdproductoNavigation) 
+         .Where(cd => cd.Idcarrito == carritoId) 
+         .ToListAsync();
+
+            return detallesCarrito;
         }
 
         public async Task UpdateDetallesDeCarrito(NewCarritoDetails carritoDetails)
