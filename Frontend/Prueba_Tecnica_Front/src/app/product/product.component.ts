@@ -45,8 +45,6 @@ export class ProductComponent implements OnInit {
       //const tokencarrito =  localStorage.getItem('CarritoToken')?.toString();
       //console.log(tokencarrito)
 
-   
-
     })
 
     

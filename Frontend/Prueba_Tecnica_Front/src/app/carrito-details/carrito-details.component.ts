@@ -24,12 +24,14 @@ export class CarritoDetailsComponent implements OnInit {
 
   getCarritoDetails(){
     this.carritoservice.CrearCarrito().subscribe((data: carrito)=>{
+
       this.carritoid =data.carritoId;
       console.log(this.carritoid)
       if(this.carrito!=null){
       this.carritoservice.getDetallesDeCarrito(this.carritoid).subscribe(data=>{
         this.carrito = this.groupAndSumProducts(data)
         console.log(this.carrito)
+
       })
     }
     })
@@ -57,6 +59,16 @@ export class CarritoDetailsComponent implements OnInit {
       total += producto.subtotal;
     }
     return total;
+  }
+
+  Eliminar(producto:number) {
+    
+    console.log(producto)
+    this.getCarritoDetails();
+    this.carritoservice.deleteitemcarrito(producto).subscribe(data=>{
+      console.log(data);
+    })
+    console.log(producto)
   }
 
   Pagarpedido(){

@@ -4,20 +4,33 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Prueba_Tecnica.Repository
 {
+    /// <summary>
+    /// Repositorio de productos que interactúa con la base de datos.
+    /// </summary>
     public class ProductRepository:IProductRepository
     {
         private readonly StoreLowCostContext _dbcontext;
-
+        /// <summary>
+        /// Constructor del repositorio de productos.
+        /// </summary>
+        /// <param name="_dbcontext">Contexto de la base de datos.</param>
         public ProductRepository(StoreLowCostContext _dbcontext)
         {
            this._dbcontext = _dbcontext;
         }
-
+        /// <summary>
+        /// Obtiene todos los productos.
+        /// </summary>
+        /// <returns>Lista de productos.</returns>
         public async Task<IEnumerable<Product>> GetProducts()
         {
             return await _dbcontext.Products.ToListAsync();
         }
-
+        /// <summary>
+        /// Agrega un nuevo producto a la base de datos.
+        /// </summary>
+        /// <param name="product">Datos del nuevo producto.</param>
+        /// <returns>Producto añadido.</returns>
         public async Task<Product> AddProduct(NewProduct product)
         {
             var new_producto = new Product
@@ -35,7 +48,10 @@ namespace Prueba_Tecnica.Repository
 
             return new_producto;
         }
-
+        /// <summary>
+        /// Elimina un producto de la base de datos por su ID.
+        /// </summary>
+        /// <param name="id">ID del producto a eliminar.</param>
         public async Task DeleteProduct(int id)
         {
            var producto = await _dbcontext.Products.FindAsync(id);
@@ -47,12 +63,19 @@ namespace Prueba_Tecnica.Repository
             }
             
         }
-
+        /// <summary>
+        /// Obtiene un producto por su ID.
+        /// </summary>
+        /// <param name="id">ID del producto.</param>
+        /// <returns>Producto encontrado.</returns>
         public async Task<Product> GetProductById(int id)
         {
             return await _dbcontext.Products.FindAsync(id);
         }
-
+        /// <summary>
+        /// Actualiza un producto existente en la base de datos.
+        /// </summary>
+        /// <param name="product">Datos del producto actualizado.</param>
         public async Task UpdateProduct(NewProduct product)
         {
 
@@ -225,8 +248,6 @@ namespace Prueba_Tecnica.Repository
         }
 
     }
-
-
     public class PedidoRepository : IPedidosRepository
     {
         private readonly StoreLowCostContext _dbcontext;

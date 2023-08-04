@@ -35,12 +35,17 @@ export class CarritoService {
   removeToken(): void {
     localStorage.removeItem('CarritoToken');
   }
+
  crearcarritodetails(data:any){
   const token = localStorage.getItem('jwtToken');
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
   const options = { headers: headers }; 
   return this.http.post(this.apiurlUsers +"Carrito/CarritoDetails",data,options)
 
+ }
+
+ deleteitemcarrito(nume:any):Observable<any>{
+  return this.http.delete<any>(this.apiurlUsers+"Carrito/CarritoDetails?carritoDetailsId="+nume)
  }
 
  getDetallesDeCarrito(carritoId: number): Observable<getcarritodetails[]> {
