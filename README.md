@@ -4,8 +4,7 @@ Prueba Técnica: Solución para una Tienda en Línea
 Bienvenido a la descripción de la solución técnica desarrollada para abordar los problemas y mejorar la funcionalidad de una tienda en línea. A continuación, se presenta un resumen detallado de cómo se abordaron los problemas y las tecnologías utilizadas en esta solución.
 Problemas Identificados
 
-La tienda en línea presentaba varios problemas, como la pérdida de datos de carrito de compras y usuarios al cerrar la aplicación, entre otros. Para resolver estos problemas, se realizó una serie de pasos que se detallan a continuación.
-Base de Datos y Modelo de Datos
+La tienda en línea presentaba varios problemas, como la pérdida de datos de carrito de compras y usuarios al cerrar la aplicación, entre otros. Para resolver estos problemas, se realizó una serie de pasos que se 
 
 Se creó una base de datos utilizando relaciones y claves primarias para garantizar la integridad y persistencia de los datos. Aquí hay una representación visual de la estructura de la base de datos:
 
