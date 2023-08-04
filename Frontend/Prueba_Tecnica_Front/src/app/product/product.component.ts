@@ -24,29 +24,32 @@ export class ProductComponent implements OnInit {
   addToCart(product: any) {
     console.log(product);
     //window.alert("producto agregado");
-    this.carritoservice.CrearCarrito().subscribe((data: carrito)=>{
+    if(product.stock<=0){
+      window.alert("no hay stock suficiente de ese producto");
+    }
+    else{
+      this.carritoservice.CrearCarrito().subscribe((data: carrito)=>{
 
-       console.log(data.carritoId);
-        const idcarrito = data.carritoId;
+        console.log(data.carritoId);
+         const idcarrito = data.carritoId;
+         
+         const CarritoDetails: NewCarritoDetails={
+           iddetalleCarrito: product.productId,
+           idcarrito: idcarrito,
+           idproducto: product.productId,
+           cantidadProducto: 1,
+           precioUnitario: product.precio,
+         }
         
-        const CarritoDetails: NewCarritoDetails={
-          iddetalleCarrito: product.productId,
-          idcarrito: idcarrito,
-          idproducto: product.productId,
-          cantidadProducto: 1,
-          precioUnitario: product.precio,
-        }
-       
-        this.carritoservice.crearcarritodetails(CarritoDetails).subscribe(data2=>{
-        
-          console.log(data2)
-        })
-      
-      //const tokencarrito =  localStorage.getItem('CarritoToken')?.toString();
-      //console.log(tokencarrito)
-
-    })
-
-    
+         this.carritoservice.crearcarritodetails(CarritoDetails).subscribe(data2=>{
+         
+           console.log(data2)
+           window.alert("Articulo agregado al carrito correctamente");
+         })
+     }, () =>{
+      window.alert("error vuelve a iniciar sesion");
+     })
+    }
+  
   }
 }

@@ -7,8 +7,9 @@ import { ProductsService } from '../services/Products.service';
 })
 export class AdminProductComponent implements OnInit {
 
-  products: any[] = []; // Declarar el arreglo de productos
-
+  products: any[] = [];
+  editProduct: any = {};
+  showEditModal: boolean = false; 
   constructor(private productService: ProductsService) { }
 
   ngOnInit(): void {
@@ -21,9 +22,22 @@ export class AdminProductComponent implements OnInit {
       console.log(data)
     });
   }
-  editProduct(product:any){
 
+  openEditModal(product: any) {
+    this.editProduct = { ...product };
+    this.showEditModal = true;
   }
+
+  cancelEdit() {
+    this.showEditModal = false;
+  }
+
+  saveChanges() {
+    // Lógica para guardar los cambios en la base de datos o en la lista local de productos
+    // ...
+    this.cancelEdit(); // Cerrar el modal
+  }
+  
   deleteProduct(product:any){
 
   }
