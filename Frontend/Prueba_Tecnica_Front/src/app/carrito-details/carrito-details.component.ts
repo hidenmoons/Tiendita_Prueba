@@ -4,6 +4,7 @@ import { CarritoService } from '../services/carrito.service';
 import { carrito } from '../Models/Carritodetails.data';
 import { PedidoService } from '../services/Pedido.service';
 import { Pedidos } from '../Models/Pedidos.data';
+import { ApiServiceService } from '../services/api-service.service';
 @Component({
   selector: 'app-carrito-details',
   templateUrl: './carrito-details.component.html',
@@ -12,8 +13,10 @@ import { Pedidos } from '../Models/Pedidos.data';
 export class CarritoDetailsComponent implements OnInit {
   carritoid: carrito | any;
   newpedidos: Pedidos| any;
+  currentuser: any;
   carrito: getcarritodetails[]=[];
-  constructor(private carritoservice:CarritoService, private pedidos:PedidoService) { }
+  metodoPagoSeleccionado: string = '';
+  constructor(private carritoservice:CarritoService, private pedidos:PedidoService, private apiservice:ApiServiceService) { }
 
   ngOnInit(): void {
     this.getCarritoDetails();
@@ -57,17 +60,21 @@ export class CarritoDetailsComponent implements OnInit {
   }
 
   Pagarpedido(){
+    this.currentuser = this.apiservice.getCurrentUser()
+    console.log(this.currentuser)
+
     const total= this.calcularTotalCarrito()
+
     console.log(total); 
     const pedidos: Pedidos={
       idpedido:1,
-      idusuario: 1,
-      fechaHoraPedido: '2',
-      estadoPedido: 'string',
-      direccionEnvio: 'string',
+      idusuario: this.currentuser.userId,
+      estadoPedido: 'Enviado',
+      direccionEnvio: this.currentuser.addres,
       totalPedido: total,
-      metododePago: 'string',
+      metododePago: this.metodoPagoSeleccionado,
     }
+
     console.log(pedidos)
     this.pedidos.PostPedido(pedidos).subscribe(data=>{
       console.log(data);

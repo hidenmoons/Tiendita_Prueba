@@ -48,13 +48,13 @@
         <p>Seleccione el método de pago:</p>
         <form>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="metodoPago" id="pagoTarjeta" value="tarjeta">
+            <input class="form-check-input" type="radio" name="metodoPago" id="pagoTarjeta" value="tarjeta" [(ngModel)]="metodoPagoSeleccionado">
             <label class="form-check-label" for="pagoTarjeta">
               Tarjeta de Crédito/Débito
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="metodoPago" id="pagoTransferencia" value="transferencia">
+            <input class="form-check-input" type="radio" name="metodoPago" id="pagoTransferencia" value="transferencia" [(ngModel)]="metodoPagoSeleccionado">
             <label class="form-check-label" for="pagoTransferencia">
               Transferencia Bancaria
             </label>

@@ -206,6 +206,24 @@ namespace Prueba_Tecnica.Repository
             }
 
         }
+        public async Task<Carrito> DesactivarCarrito(int idUser)
+        {
+            // Obtener el primer carrito activo del usuario
+            var carritoActivo = await _dbcontext.Carritos
+                .FirstOrDefaultAsync(x => x.UserId == idUser && x.CarritoStatus == "Activo");
+
+            if (carritoActivo != null)
+            {
+                // Cambiar el estado del carrito a "Desactivado"
+                carritoActivo.CarritoStatus = "Desactivado";
+
+                // Guardar los cambios en la base de datos
+                await _dbcontext.SaveChangesAsync();
+            }
+
+            return carritoActivo;
+        }
+
     }
 
 
@@ -218,6 +236,18 @@ namespace Prueba_Tecnica.Repository
         }
         public async Task<Pedido> AddPedido(NewPedido pedido)
         {
+
+            var carritoActivo = await _dbcontext.Carritos
+       .Where(x => x.UserId == pedido.Idusuario && x.CarritoStatus == "Activo").ToListAsync(); ;
+
+         foreach(var item in carritoActivo)
+            {
+                if (item.CarritoStatus=="Activo")
+                {
+                    item.CarritoStatus = "Desactivado";
+                }
+            }
+
             var newpedido = new Pedido
             {
                 Idusuario = pedido.Idusuario,
@@ -227,7 +257,7 @@ namespace Prueba_Tecnica.Repository
                 TotalPedido = pedido.TotalPedido,
                 MetododePago = pedido.MetododePago,
             };
-
+          
             await _dbcontext.Pedidos.AddAsync(newpedido);
             await _dbcontext.SaveChangesAsync();
 

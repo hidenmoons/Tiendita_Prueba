@@ -31,7 +31,9 @@ export class ApiServiceService {
   removeToken(): void {
     localStorage.removeItem('jwtToken');
   }
-
+  removeusers(): void {
+    localStorage.removeItem('currentUser');
+  }
   saveUser(user: any): void {
     localStorage.setItem('currentUser', JSON.stringify(user));
   }

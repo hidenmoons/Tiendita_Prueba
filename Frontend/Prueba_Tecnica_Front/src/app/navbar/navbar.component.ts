@@ -17,5 +17,6 @@ export class NavbarComponent implements OnInit {
 
   logout(): void {
     this.currentUser= this.apiService.removeToken();
+    this.apiService.removeusers();
   }
 }

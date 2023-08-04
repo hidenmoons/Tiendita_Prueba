@@ -99,7 +99,7 @@ public partial class StoreLowCostContext : DbContext
             entity.HasKey(e => e.Idpedido).HasName("PK__Pedidos__00C11F9937C6F766");
 
             entity.Property(e => e.Idpedido)
-                .ValueGeneratedNever()
+                
                 .HasColumnName("IDPedido");
             entity.Property(e => e.DireccionEnvio)
                 .HasMaxLength(100)
