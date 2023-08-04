@@ -25,7 +25,7 @@ namespace Prueba_Tecnica.Controllers
         /// Obtiene todos los productos.
         /// </summary>
         /// <returns>Lista de productos.</returns>
-        [Authorize(Policy = "AdminOnly")]
+        
         [HttpGet]
         public async Task<IActionResult> GetallProducts()
         {
@@ -77,7 +77,6 @@ namespace Prueba_Tecnica.Controllers
         /// <param name="id">ID del producto a eliminar.</param>
         /// <returns>Respuesta Accepted si se eliminó el producto.</returns>
         [Authorize(Policy = "AdminOnly")]
-        [Authorize(Policy = "ClienteOnly")]
         [HttpDelete]
         public async Task<ActionResult> DeleteProduct(int id)
         {

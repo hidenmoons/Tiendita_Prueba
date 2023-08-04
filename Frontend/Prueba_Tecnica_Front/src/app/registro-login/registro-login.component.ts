@@ -59,8 +59,9 @@ export class RegistroLoginComponent implements OnInit {
     this.userservice.Login(this.login).subscribe(data => {
       this.userservice.saveToken(data.token);
       this.userservice.saveUser(data.user);
+      window.location.href = '/Catalogo';
     });
 
-    window.location.href = '/Catalogo';
+   
   }
 }

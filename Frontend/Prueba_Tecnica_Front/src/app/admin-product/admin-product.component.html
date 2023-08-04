@@ -21,7 +21,7 @@
           <td>{{ product.precio | currency }}</td>
           <td>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEditar" (click)="openEditModal(product)">Editar</button>
-            <button class="btn btn-danger m1" (click)="deleteProduct(product.productId)">Eliminar</button>
+            <button class="btn btn-danger ms-2" (click)="deleteProduct(product.productId)">Eliminar</button>
           </td>
         </tr>
       </tbody>

@@ -10,7 +10,10 @@ export class ProductsService {
   constructor(private http: HttpClient) { }
 
   GetProducts(): Observable<any>{
-    return this.http.get(this.apiurlProducts)
+    const token = localStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const options = { headers: headers }; 
+    return this.http.get(this.apiurlProducts,options)
   }
 
   createProduct(product:any): Observable<any>{
