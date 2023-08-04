@@ -20,8 +20,10 @@ builder.Services.AddCors(options =>
                           AllowAnyMethod() ;
                       });
 });
+
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICarritoRepository, CarritoRepository>();
+builder.Services.AddScoped<IPedidosRepository, PedidoRepository>();
 
 builder.Services.AddDbContext<StoreLowCostContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("sqlconex")));

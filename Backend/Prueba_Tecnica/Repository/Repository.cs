@@ -208,4 +208,30 @@ namespace Prueba_Tecnica.Repository
         }
     }
 
+
+    public class PedidoRepository : IPedidosRepository
+    {
+        private readonly StoreLowCostContext _dbcontext;
+        public PedidoRepository(StoreLowCostContext _dbContext)
+        {
+            this._dbcontext = _dbContext;
+        }
+        public async Task<Pedido> AddPedido(NewPedido pedido)
+        {
+            var newpedido = new Pedido
+            {
+                Idusuario = pedido.Idusuario,
+                FechaHoraPedido = DateTime.Now,
+                EstadoPedido = pedido.EstadoPedido,
+                DireccionEnvio = pedido.DireccionEnvio,
+                TotalPedido = pedido.TotalPedido,
+                MetododePago = pedido.MetododePago,
+            };
+
+            await _dbcontext.Pedidos.AddAsync(newpedido);
+            await _dbcontext.SaveChangesAsync();
+
+            return newpedido;
+        }
+    }
 }

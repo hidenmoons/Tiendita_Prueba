@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { getcarritodetails } from '../Models/Carritodetails.data';
 import { CarritoService } from '../services/carrito.service';
 import { carrito } from '../Models/Carritodetails.data';
+import { PedidoService } from '../services/Pedido.service';
+import { Pedidos } from '../Models/Pedidos.data';
 @Component({
   selector: 'app-carrito-details',
   templateUrl: './carrito-details.component.html',
@@ -9,8 +11,9 @@ import { carrito } from '../Models/Carritodetails.data';
 })
 export class CarritoDetailsComponent implements OnInit {
   carritoid: carrito | any;
+  newpedidos: Pedidos| any;
   carrito: getcarritodetails[]=[];
-  constructor(private carritoservice:CarritoService) { }
+  constructor(private carritoservice:CarritoService, private pedidos:PedidoService) { }
 
   ngOnInit(): void {
     this.getCarritoDetails();
@@ -27,11 +30,8 @@ export class CarritoDetailsComponent implements OnInit {
       })
     }
     })
-    
-   
-
-    
   }
+  
   groupAndSumProducts(carrito: getcarritodetails[]): getcarritodetails[] {
     const groupedProducts: getcarritodetails[] = [];
     
@@ -54,5 +54,25 @@ export class CarritoDetailsComponent implements OnInit {
       total += producto.subtotal;
     }
     return total;
+  }
+
+  Pagarpedido(){
+    const total= this.calcularTotalCarrito()
+    console.log(total); 
+    const pedidos: Pedidos={
+      idpedido:1,
+      idusuario: 1,
+      fechaHoraPedido: '2',
+      estadoPedido: 'string',
+      direccionEnvio: 'string',
+      totalPedido: total,
+      metododePago: 'string',
+    }
+    console.log(pedidos)
+    this.pedidos.PostPedido(pedidos).subscribe(data=>{
+      console.log(data);
+    }, error => {
+      console.error('Error al realizar el pago:', error);
+    })
   }
 }
