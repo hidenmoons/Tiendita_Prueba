@@ -20,7 +20,7 @@ namespace Prueba_Tecnica.Controllers
         {
             this._dbcontext = _dbcontext;
         }
-        // GET: api/<UserController>
+     
         [Authorize(Policy = "AdminOnly")]
         [HttpGet]
         public async Task<IActionResult> ListadeUsuarios()
@@ -33,7 +33,6 @@ namespace Prueba_Tecnica.Controllers
             var options = new JsonSerializerOptions
             {
                 ReferenceHandler = ReferenceHandler.Preserve,
-                // ... otras opciones ...
             };
 
             var json = JsonSerializer.Serialize(usuariosConCarritos, options);
@@ -41,14 +40,14 @@ namespace Prueba_Tecnica.Controllers
 
         }
 
-        // GET api/<UserController>/5
+      
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<UserController>
+   
         [HttpPost]
         public async Task<IActionResult> Crear_usuario([FromBody] NewUser nuevousuario)
         {
@@ -68,7 +67,7 @@ namespace Prueba_Tecnica.Controllers
 
         }
    
-        // DELETE api/<UserController>/5
+       
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

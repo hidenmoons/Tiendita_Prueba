@@ -33,17 +33,18 @@ create table CarritoDetails(
  PrecioUnitario DECIMAL(10, 2),
  Subtotal DECIMAL(10, 2)
 )
-CREATE TABLE Pedidos (
-    IDPedido INT PRIMARY KEY,
+  CREATE TABLE Pedidos (
+    IDPedido INT PRIMARY KEY identity(1,1),
     IDUsuario INT FOREIGN KEY REFERENCES Users(UserID),
     FechaHoraPedido DATETIME,
     EstadoPedido VARCHAR(50),
     DireccionEnvio VARCHAR(100),
+	MetododePago varchar(50),
     TotalPedido DECIMAL(10, 2)
 );
 
 CREATE TABLE DetallesPedido (
-    IDDetallePedido INT PRIMARY KEY,
+    IDDetallePedido INT PRIMARY  KEY identity(1,1),
     IDPedido INT FOREIGN KEY REFERENCES Pedidos(IDPedido),
     IDProducto INT FOREIGN KEY REFERENCES Products(ProductID),
     CantidadProducto INT,
