@@ -1,10 +1,12 @@
 <div class="container mt-4">
     <h2>Administrar Productos</h2>
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalCrear">Agregar</button>
     <table class="table">
       <thead>
         <tr>
           <th scope="col">Imagen</th>
           <th scope="col">Nombre</th>
+          <th scope="col">Descripción</th>
           <th scope="col">stock</th>
           <th scope="col">Precio</th>
           <th scope="col">Acciones</th>
@@ -14,11 +16,12 @@
         <tr *ngFor="let product of products">
           <td><img [src]="product.imagen" class="img-thumbnail img-fluid" style="width: 140px; height: 150px;" alt="{{ product.productName }}" class="product-image"></td>
           <td>{{ product.productName }}</td>
+          <td>{{ product.descript }}</td>
           <td>{{product.stock}}</td>
           <td>{{ product.precio | currency }}</td>
           <td>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEditar" (click)="openEditModal(product)">Editar</button>
-            <button class="btn btn-danger m1" (click)="deleteProduct(product)">Eliminar</button>
+            <button class="btn btn-danger m1" (click)="deleteProduct(product.productId)">Eliminar</button>
           </td>
         </tr>
       </tbody>
@@ -34,7 +37,53 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
+          <form (ngSubmit)="saveChanges()">
+            <div class="form-group">
+              <label for="editProductId">ID del Producto</label>
+              <input type="text" class="form-control" id="CreateProductId" name="CreateProductId" [(ngModel)]="editProduct.productId" readonly>
+            </div>
+            <div class="form-group">
+              <label for="editProductName">Nombre del Producto</label>
+              <input type="text" class="form-control" id="CreateProductName" name="CreateProductName" [(ngModel)]="editProduct.productName">
+            </div>
+            <div class="form-group">
+              <label for="editProductDescript">Descripción</label>
+              <input type="text" class="form-control" id="CreateProductDescript" name="CreateProductDescript" [(ngModel)]="editProduct.descript">
+            </div>
+            <div class="form-group">
+              <label for="editProductPrecio">Precio</label>
+              <input type="number" class="form-control" id="CreateProductPrecio" name="CreateProductPrecio" [(ngModel)]="editProduct.precio">
+            </div>
+            <div class="form-group">
+              <label for="editProductStock">Stock</label>
+              <input type="number" class="form-control" id="CreateProductStock" name="CreateProductStock" [(ngModel)]="editProduct.stock">
+            </div>
+            <div class="form-group">
+              <label for="editProductCategoria">Categoría</label>
+              <input type="text" class="form-control" id="CreateProductCategoria" name="CreateProductCategoria" [(ngModel)]="editProduct.categoria">
+            </div>
+            <div class="form-group">
+              <label for="editProductImagen">Imagen</label>
+              <input type="text" class="form-control" id="CreateProductImagen" name="CreateProductImagen" [(ngModel)]="editProduct.imagen">
+            </div>
+            <button type="button" class="btn btn-primary mt-3 m-2" (click)="saveChanges()" data-bs-dismiss="modal">Guardar Cambios</button>
+            <button type="button" class="btn btn-secondary mt-3 m-2" data-bs-dismiss="modal">Cancelar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+   <!-- Modal de Crear -->
+<div class="modal fade" id="modalCrear" tabindex="-1" aria-labelledby="modalCrearLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="crearProductoModalLabel">Crear Producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="CreateItem()">
             <div class="form-group">
               <label for="editProductId">ID del Producto</label>
               <input type="text" class="form-control" id="editProductId" name="editProductId" [(ngModel)]="editProduct.productId" readonly>
@@ -63,14 +112,13 @@
               <label for="editProductImagen">Imagen</label>
               <input type="text" class="form-control" id="editProductImagen" name="editProductImagen" [(ngModel)]="editProduct.imagen">
             </div>
-            <button type="button" class="btn btn-primary mt-3 m-2" (click)="saveChanges()">Guardar Cambios</button>
-            <button type="button" class="btn btn-secondary mt-3 m-2 " data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary mt-3 m-2" (click)="CreateItem()" data-bs-dismiss="modal">Guardar Cambios</button>
+            <button type="button" class="btn btn-secondary mt-3 m-2" data-bs-dismiss="modal">Cancelar</button>
           </form>
         </div>
       </div>
     </div>
   </div>
-  
   
   
 

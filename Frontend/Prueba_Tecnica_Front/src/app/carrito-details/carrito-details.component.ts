@@ -67,6 +67,8 @@ export class CarritoDetailsComponent implements OnInit {
     this.getCarritoDetails();
     this.carritoservice.deleteitemcarrito(producto).subscribe(data=>{
       console.log(data);
+      this.getCarritoDetails();
+      window.alert("Elemento eliminado del carrito");
     })
     console.log(producto)
   }

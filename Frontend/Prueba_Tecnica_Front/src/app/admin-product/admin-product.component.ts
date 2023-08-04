@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../services/Products.service';
+import { PRODUCTS } from '../Models/Product.data';
 @Component({
   selector: 'app-admin-product',
   templateUrl: './admin-product.component.html',
@@ -27,18 +28,50 @@ export class AdminProductComponent implements OnInit {
     this.editProduct = { ...product };
     this.showEditModal = true;
   }
+openCreateModal(){
+  this.editProduct={
+    productId: null,
+    productName: '',
+    descript: '',
+    precio: null,
+    stock: null,
+    categoria: '',
+    imagen: ''
+  };
 
-  cancelEdit() {
-    this.showEditModal = false;
-  }
+}
+ 
+
+CreateItem(){
+
+  this.productService.createProduct(this.editProduct).subscribe(data=>{
+    this.getproducts();
+    window.alert("Producto Creado");
+    console.log(data);
+  },()=>{
+    window.alert("Algo salio mal porfavor inicia sesion de nuevo")
+  })
+}
 
   saveChanges() {
-    // Lógica para guardar los cambios en la base de datos o en la lista local de productos
-    // ...
-    this.cancelEdit(); // Cerrar el modal
+    this.productService.UpdateProduct(this.editProduct).subscribe(data=>{
+      
+      console.log(data);
+      this.getproducts();
+      window.alert("Producto Modificado con exito!")
+    }, ()=>{
+      window.alert("Algo salio mal porfavor inicia sesion de nuevo")
+    })
+    
   }
   
   deleteProduct(product:any){
 
+    this.productService.DeleteProduct(product).subscribe(data=>{
+      window.alert("Producto eliminado!")
+      this.getproducts();
+    }, ()=>{
+      window.alert("Algo salio mal porfavor inicia sesion de nuevo")
+    })
   }
 }
