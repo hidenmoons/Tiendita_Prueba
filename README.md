@@ -10,7 +10,7 @@ Se creó una base de datos utilizando relaciones y claves primarias para garanti
 
 Backend - Tecnologías Utilizadas
 
-Se utilizó el framework .NET para desarrollar el backend de la aplicación. El enfoque elegido fue el de "Database First", que permitió generar automáticamente los modelos de datos a partir de la estructura de la base de datos. Aquí se muestra el comando utilizado para generar los modelos:
+Se utilizó el framework .NET para desarrollar el backend de la aplicación. El enfoque elegido fue el de "Database First", que permitió generar automáticamente los modelos de datos a partir de la estructura de la base de datos
 
 dotnet ef dbcontext scaffold "Data Source=(localdb)\Hidenmoons;Initial Catalog=Store_LowCost;Integrated Security=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models
 
